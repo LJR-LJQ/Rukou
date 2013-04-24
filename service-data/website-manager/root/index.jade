@@ -1,0 +1,568 @@
+doctype5
+html(lang="en-US")
+	head
+		meta(http-equiv='Content-Type', Content='text/html; charset=utf-8')
+		title @Rukou 入口
+		script(src='javascript/auto-refresh.js',type='text/javascript')
+	body.base-bg.read-color(onload='onloadHandler();')
+		// 设计概述
+
+		// 字体：
+		// 1、超大尺寸	huge: 6em
+		// 2、大尺寸	big: 2em
+		// 3、正文尺寸	normal: 1em
+
+		// 色彩
+		// 1、基色		base: rgb(233,228,209)
+		// 2、阅读色	read: black
+		// 3、弱化色	weak: rgb(216,208,174)
+		// 4、强调色	emphasize: rgb(224, 192, 54)
+
+		// 整体设计结构
+		// 1、产品标识	LOGO
+		// 2、总标题	Title
+		// 3、站点名称	Website Name
+		// 4、站点描述	Website Description
+
+		// 大环境设置
+		style(type="text/css")
+			html, body {
+				margin: 0;
+				padding: 0;
+				border: none;
+				width: 100%;
+				height: 100%;
+			}
+
+			body {
+				font-family: 'Georgia';
+				font-size: 16px;
+			}
+
+			a {
+				color: inherit;
+				text-decoration: inherit;
+			}
+
+		// display: none 样式
+		style(type='text/css')
+			.none {
+				display: none !important;
+			}
+
+		// 全局字体设置（英文 Georgia，中文 风雅宋）
+		style(type="text/css")
+			@font-face {
+				font-family: fys;
+				src: url('font/fys.ttf');
+			}
+			body {
+				font-family: 'Georgia', fys;
+			}
+
+		// 局部字体设置修正（较小的文字不用风雅宋用楷体）
+		style(type="text/css")
+			.website-desc {
+				font-family: 'Georgia', KaiTi;
+			}
+
+		// 样式修正
+		style(type="text/css")
+			.website-list > ul {
+				list-style-type: none;
+				padding: 0;
+				margin: 0;
+			}
+			.title {
+				cursor: default;
+			}
+			.website-name > a:hover {
+				text-decoration: underline;
+			}
+			.website-desc {
+				cursor: default;
+			}
+
+		// 动画设定
+		style(type='text/css')
+			body {
+				-webkit-perspective: 400px;
+				-webkit-perspective-origin: 50% 50%;
+			}
+			.hide-0 {
+				opacity: 0;
+				-webkit-transform: translateY(-100px);
+				-webkit-transition: -webkit-transform 1s, opacity 1s;
+			}
+			.hide-1 {
+				opacity: 0;
+				-webkit-transform: translateY(-100px) translateZ(-200px) rotateX(60deg);
+				-webkit-transition: -webkit-transform 2s, opacity 2s;
+				-webkit-transition-delay: 1s;
+			}
+			.hide-2 {
+				opacity: 0;
+				-webkit-transform-origin-y: 0em;
+				-webkit-transform: translateY(100px) translateZ(-200px) rotateX(-60deg);
+				-webkit-transition: -webkit-transform 2s, opacity 2s;
+				-webkit-transition-delay: 1s;
+			}
+			.show {
+				opacity: 1;
+				-webkit-transform: none;
+			}
+
+		// 关闭动画设定（调试用）
+		style(type='text/css')
+			/*
+			.hide-0 {
+				opacity: 0;
+				-webkit-transform: none;
+				-webkit-transition: none;
+			}
+			.hide-1 {
+				opacity: 0;
+				-webkit-transform: none;
+				-webkit-transition: none;
+			}
+			.hide-2 {
+				opacity: 0;
+				-webkit-transform: none;
+				-webkit-transition: none;
+			}
+			.show {
+				opacity: 1;
+				-webkit-transform: none;
+			}
+			*/
+
+		// 动画设定（小细节）
+		style(type='text/css')
+			.website-name > a:active {
+				-webkit-transform: translateZ(-100px);
+			}
+
+		// 调试样式
+		style(type="text/css")
+			.bd {
+				border: solid 1px black;
+			}
+
+		// 欢迎屏幕
+		style(type='text/css')
+			.welcome-screen {
+				position: fixed;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+			}
+			.welcome-screen {
+				background-color: rgb(233,228,209);
+				color: black;
+			}
+			.welcome-screen .top-space {
+				height: 30%;
+			}
+			.captions-container {
+				text-align: center;
+				font-size: 2em;
+			}
+			.caption {
+				height: 0;
+				text-shadow: 1px 1px white;
+			}
+			.caption .welcome-words {
+				letter-spacing: .2em;
+			}
+			.caption .product-name {
+				margin: 0;
+				font-size: 2em;
+				font-weight: bold;
+			}
+			.caption .slogan {
+				font-size: .75em;
+				letter-spacing: .4em;
+				margin-left: 3em;
+			}
+			.caption .design-by {
+				font-size: 1em;
+			}
+
+		// 字幕动画
+		style(type='text/css')
+			.welcome-screen-hide {
+				opacity: 0;
+				display: none;
+			}
+			.welcome-screen-show {
+				opacity: 1;
+				display: block;
+			}
+			@-webkit-keyframes caption-show-anim {
+				0% { visibility: visible; }
+				20% { opacity: 1; }
+				80% { opacity: 1; }
+			}
+			.caption-hide {
+				opacity: 0;
+				visibility: hidden;
+			}
+			.caption-show {
+				-webkit-animation-name: caption-show-anim;
+				-webkit-animation-duration: 3s;
+			}
+			.caption-show-debug {
+				visibility: visible;
+				opacity: 1;
+			}
+
+		// LOGO 设定
+		style(type='text/css')
+			.logo-area {
+				text-align: center;
+			}
+			.logo {
+				display: inline-block;
+				padding: 1em;
+			}
+
+		// 整体的色彩与字体设置
+		style(type='text/css')
+			body {
+				background-color: rgb(233,228,209);
+			}
+			.logo {
+				background-color: rgb(216,208,174);
+				color: rgb(233,228,209);
+				font-weight: bold;
+			}
+			.logo:hover {
+				background-color: rgb(224, 192, 54);
+				color: black;
+			}
+			.logo:active {
+				background-color: rgb(216,208,174);
+			}
+			.title {
+				color: black;
+				font-size: 6em;
+				text-shadow: 1px 1px white;
+				text-align: center;
+			}
+			.website-name {
+				font-size: 2em;
+				text-shadow: 1px 1px white;
+			}
+			.website-desc {
+				font-size: 1em;
+				color: rgb(216,208,174);
+			}
+			.website-desc:hover {
+				color: rgb(224, 192, 54);
+			}
+
+		// 标题
+		style(type='text/css')
+			.title {
+				margin-top: 1em;
+				margin-bottom: .4em;
+			}
+
+		// 站点列表
+		style(type='text/css')
+			.website-list {
+				text-align: center;
+			}
+			.website-list > ul {
+				display: inline-block;
+				max-width: 40em;
+			}
+			.website-list > ul > li {
+				margin-bottom: 1em;
+			}
+
+		// 色彩改写（覆盖原始的设计色彩）
+		// 1、基色		base: black
+		// 2、阅读色	read: white
+		// 3、弱化色	weak: gray
+		// 4、强调色	emphasize: rgb(0, 224, 255)
+		style(type='text/css')
+			/*
+			body {
+				background-color: black;
+				color: white;
+			}
+			.logo {
+				background-color: gray;
+				color: black;
+				font-weight: bold;
+			}
+			.logo:hover {
+				background-color: white;
+				color: rgb(0, 224, 255);
+			}
+			.logo:active {
+			}
+			.title {
+				color: white;
+				text-shadow: none;
+			}
+			.website-name {
+				color: rgb(0, 224, 255);
+				text-shadow: none;
+			}
+			.website-desc {
+				color: gray;
+			}
+			.website-desc:hover {
+				color: white;
+			}
+			*/
+
+		// 色彩改写（覆盖原始的设计色彩）
+		// 1、基色		base: rgb(61, 61, 61)
+		// 2、阅读色	read: white
+		// 3、弱化色	weak: gray
+		// 4、强调色	emphasize: rgb(0, 224, 255)
+		style(type='text/css')
+			/*
+			body {
+				background-color: rgb(61, 61, 61);
+				color: white;
+			}
+			.logo {
+				background-color: gray;
+				color: black;
+				font-weight: bold;
+			}
+			.logo:hover {
+				background-color: rgb(0, 224, 255);
+				color: black;
+			}
+			.logo:active {
+			}
+			.title {
+				color: white;
+				text-shadow: none;
+			}
+			.website-name {
+				color: rgb(0, 224, 255);
+				text-shadow: none;
+			}
+			.website-desc {
+				color: gray;
+			}
+			.website-desc:hover {
+				color: white;
+			}
+			*/
+
+		// 色彩改写（覆盖原始的设计色彩）
+		// 1、基色		base: rgb(255, 214, 0)
+		// 2、阅读色	read: black
+		// 3、弱化色	weak: gray
+		// 4、强调色	emphasize: white
+		style(type='text/css')
+			/*
+			body {
+				background-color: rgb(255, 214, 0);
+				color: white;
+			}
+			.logo {
+				background-color: black;
+				color: rgb(255, 214, 0);
+				font-weight: bold;
+			}
+			.logo:hover {
+				background-color: black;
+				color: white;
+			}
+			.logo:active {
+			}
+			.title {
+				color: black;
+				text-shadow: none;
+			}
+			.website-name {
+				color: black;
+				text-shadow: none;
+			}
+			.website-name > a:hover {
+				color: rgb(255, 214, 0);
+				background-color: black;
+				text-decoration: none;
+			}
+			.website-desc {
+				color: black;
+			}
+			.website-desc:hover {
+				color: black;
+			}
+			*/
+
+
+		#welcome-screen.welcome-screen.welcome-screen-hide.welcome-screen-show
+			.top-space
+			#captions-container.captions-container
+				.caption.caption-hide
+					.welcome-words 欢迎使用由“小林软件”提供的
+				.caption.caption-hide
+					.product-name @Rukou 入口
+					.slogan 痛苦和骄傲我共你一起拥有
+
+		#logo-area.logo-area.hide-0
+			a(href="http://www.lin-jianru.com",target="_blank")
+				.logo @Rukou 入口
+		#title.title.hide-1 网站列表
+		#website-list.website-list.hide-2
+			ul
+				li
+					.website-name
+						a(href="/",target="_blank") Website Name Name 网站名称
+					.website-desc
+						|website description here 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述
+				li
+					.website-name
+						a(href="/",target="_blank") Website Name
+					.website-desc
+						|website description here
+				li
+					.website-name
+						a(href="/",target="_blank") Website Name
+					.website-desc
+						|website description here
+				li 
+					.website-name
+						a(href="/",target="_blank") Website Name Website Name Name Website
+					.website-desc
+						|website description here description here description here description here description here description here description here description here description here description here description here description here description here
+
+		// 欢迎屏幕动画
+		script(type='text/javascript')
+			function showWelcomeScreen(finishCallback) {
+				var captionsContainer,
+					captionsList,
+					tmpList;
+
+				captionsContainer = document.getElementById('captions-container');
+				if (!captionsContainer) return;
+
+				captionsList = captionsContainer.childNodes;
+				if (!captionsList || captionsList.length <= 0) return;
+
+				tmpList = [];
+				for (var i = 0; i < captionsList.length; ++i) {
+					tmpList.push(captionsList[i]);
+				}
+				captionsList = tmpList;
+
+				captionsList = captionsList.filter(function(caption) {
+					// 必须在 class 属性中含有 caption
+					if (!caption.classList) return;
+					for (var j = 0; j < caption.classList.length; ++j) {
+						if (caption.classList[j] === 'caption') return true;
+					}
+					return false;
+				});
+
+				runCaptions(captionsList, runCaptionsCallback);
+
+				function runCaptionsCallback() {
+					// 把欢迎屏幕渐隐掉，然后通知外部整个欢迎动画已经完全结束
+					var welcomeScreen;
+
+					welcomeScreen = document.getElementById('welcome-screen');
+					if (!welcomeScreen) {
+						if (finishCallback) {
+							try {
+								finishCallback();
+							} catch(err) {
+
+							}
+						}
+						return;
+					}
+
+					welcomeScreen.classList.remove('welcome-screen-show');
+
+					if (finishCallback) {
+						try {
+							finishCallback();
+						} catch(err) {
+
+						}
+					}
+				}
+
+				// 字幕切换动画
+				function runCaptions(captionList, allDoneCallback) {
+					if (!captionList || captionList.length <= 0) return;
+					var i = 0;
+					showCaption(captionList[i++], showCaptionCallback);
+
+					function showCaption(caption, finishCallback) {
+						if (!caption) {
+							// 直接返回，什么也不做
+							// 不调用 finishCallback
+							return;
+						}
+						caption.classList.add('caption-show');
+						// 动画间隔后调用回调函数
+						if (finishCallback) {
+							caption.addEventListener('webkitAnimationEnd', function(e) {
+								try {
+									finishCallback();
+								} catch(err) {
+
+								}
+							});
+						}
+					}
+
+					function showCaptionCallback() {
+						console.log(i);
+						if (i >= captionList.length) {
+							// 全部结束了
+							if (allDoneCallback) {
+								try {
+									allDoneCallback();
+								} catch (err) {
+
+								}
+							}
+							return;
+						}
+						showCaption(captionList[i++], showCaptionCallback);
+					}
+				}
+			}
+
+		// 主界面动画
+		script(type='text/javascript')
+			function logoArea() {
+				return document.getElementById('logo-area');
+			}
+
+			function title() {
+				return document.getElementById('title');
+			}
+
+			function websiteList() {
+				return document.getElementById('website-list');
+			}
+
+			function show(e) {
+				if (!e) return;
+				e.classList.add('show');
+			}
+
+			function onloadHandler() {
+				showWelcomeScreen(showWelcomeScreenDoneCallback);
+				//showWelcomeScreenDoneCallback();
+				function showWelcomeScreenDoneCallback() {
+					show(logoArea());
+					show(title());
+					show(websiteList());
+				}
+			}

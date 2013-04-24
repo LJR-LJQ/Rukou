@@ -1,0 +1,12 @@
+[
+	{
+		"guid": "c9612797-c3ee-4017-aa4a-4c8187e0bc9d",
+		"name": "default website",
+		"root": "default-website"
+	},
+	{
+		"guid": "4271981a-f459-42ff-8c9a-a5252f306da4",
+		"name": "my website",
+		"root": "F:\\test-site\\"
+	}
+]
