@@ -1,10 +1,10 @@
-html lang=en-US
+html
 	head
 		meta http-equiv=Content-Type Content=text/html;charset=utf-8
 		title :| @Rukou 入口
 		script src=../global/javascript/auto-refresh.js type=text/javascript
-		script src=ui.js type=text/javascript
-		link href=style.css rel=stylesheet type=text/css
+		script src=javascript/ui.js type=text/javascript
+		link href=style/style.css rel=stylesheet type=text/css
 	body class=base-bg,read-color onload=onloadHandler();
 		div id=welcome-screen class=welcome-screen,welcome-screen-hide,welcome-screen-show
 			div class=top-space
@@ -22,9 +22,9 @@ html lang=en-US
 			ul
 				li
 					div class=website-name
-						a href=/ target=_blank :| Website Name Name 网站名称
+						a href=/group-online/index.html target=_blank :| 团队在线
 					div class=website-desc
-						:| website description here 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述 站点描述
+						:| 提供了团队沟通和协作所需的在线交流系统
 				li
 					div class=website-name
 						a href=/ target=_blank :| Website Name

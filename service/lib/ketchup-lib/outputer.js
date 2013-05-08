@@ -16,7 +16,7 @@ var format = require('util').format;
 	本函数能够根据番茄酱(Ketchup)语言的AST语法树生成对应的 html5 字符串
 */
 function output(tree) {
-	var text = tag(tree);
+	var text = '<!doctype html>\r\n' + tag(tree);
 	return text;
 
 	function tag(node) {

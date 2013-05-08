@@ -47,7 +47,7 @@ a {
 
 @font-face {
 	font-family: fys;
-	src: url('font/fys.ttf');
+	src: url('../../global/font/fys.ttf');
 }
 body {
 	font-family: 'Georgia', fys;
