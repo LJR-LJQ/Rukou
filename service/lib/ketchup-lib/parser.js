@@ -1,6 +1,10 @@
 // [导出]
 exports.parse = parse;
 
+// [模块]
+var inlineParser = require('./inline-parser.js'),
+	isWhiteSpace = require('./common.js').isWhiteSpace;
+
 /*
 	名称：语法解析函数
 	参数：
@@ -25,7 +29,7 @@ function parse(inputStr) {
 		nodeList;
 
 	// [流程]
-	rootNode = node('root', -1);
+	rootNode = createNode('root', -1);
 
 	if (typeof inputStr !== 'string' || inputStr.length < 1) {
 		// inputStr 不是字符串（例如 null、undefined、其他类型），或者是空字符串
@@ -44,25 +48,44 @@ function parse(inputStr) {
 	return rootNode;
 
 	// [函数]
-	function node(name, level) {
+	function createNode(name, level) {
 		return {name: name, level: level, children: []};
 	}
 
 	function toLines(inputStr) {
-		return inputStr.split('\r\n');
+		var lines = inputStr.split('\r\n');
+		// 删除所有空白的行
+		lines = lines.filter(function(line) {
+			return !isEmptyLine(line);
+		});
+		return lines;
+
+		function isEmptyLine(line) {
+			if (!line) return true;
+			for (var i = 0, len = line.length; i < len; ++i) {
+				if (!isWhiteSpace(line[i])) {
+					return false;
+				}
+			}
+			return true;
+		}
 	}
 
 	function parseLine(line) {
-		var name,
+		var node,
 			level;
 
 		level = countLeadingSpace(line);
-		name = line.substring(level, line.length);
-		return node(name, level);
+		node = inlineParser.parse(line.substring(level, line.length));
+		node.level = level;
+		return node;
 
 		function countLeadingSpace(line) {
+			// 一个 tab 和一个空格等价
 			for (var i = 0, len = line.length; i < len; ++i) {
-				if (line[i] !== ' ') return i;
+				if (!isWhiteSpace(line[i])) {
+					return i;
+				}
 			}
 		}
 	}
@@ -92,7 +115,7 @@ function parse(inputStr) {
 		return e;
 
 		// [函数]
-		function findParent(e, nodeList) {debugger;
+		function findParent(e, nodeList) {
 			for (var i = nodeList.length - 1; i > -1; --i) {
 				if (nodeList[i].level < e.level) {
 					return nodeList[i];

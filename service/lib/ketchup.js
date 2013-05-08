@@ -13,6 +13,8 @@ function compile(inputFileName, outputFileName) {
 	var inputFileContent,
 		outputFileContent;
 
+	var tree;
+
 	// [流程]
 	try {
 		if (!fs.existsSync(inputFileName)) {
@@ -20,15 +22,24 @@ function compile(inputFileName, outputFileName) {
 		}
 
 		inputFileContent = fs.readFileSync(inputFileName, {encoding: 'utf8'});
-		outputFileContent = outputer.output(parser.parse(inputFileContent));
+		if (inputFileContent) {
+			var tree = parser.parse(inputFileContent);
+			if (tree && tree.children) {debugger;
+				tree = tree.children[0];
+			}
+			outputFileContent = outputer.output(tree);
 
-		if (outputFileContent === false) {
-			return false;
+			if (outputFileContent === false) {
+				return false;
+			}
+		} else {
+			outputFileContent = '';
 		}
 
 		fs.writeFileSync(outputFileName, outputFileContent);
 		return true;
 	} catch(err) {
+		console.log(err.toString());
 		return false;
 	}
 }

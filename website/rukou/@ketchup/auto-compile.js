@@ -12,6 +12,7 @@ inputFile = path.resolve(__dirname, 'index.k');
 outputFile = path.resolve(__dirname, '../index.html');
 
 autoCompile(inputFile, outputFile);
+//compileOnce(inputFile, outputFile);
 
 // [函数]
 function request(reqObj, resCallback) {
@@ -69,7 +70,7 @@ function request(reqObj, resCallback) {
 
 function requestCallback(resObj) {
 	if (resObj.error) {
-		console.log('compile failed: ' + resObj.error);
+		console.log(resObj.error);
 		console.log();
 	} else {
 		var d = new Date();

@@ -20,15 +20,62 @@ function output(tree) {
 	return text;
 
 	function tag(node) {
-		var content;
+		var propStr,
+			content,
+			result;
 
 		content = '';
-		if (node.children) {
-			for (var i = 0, len = node.children.length; i < len; ++i) {
-				content += tag(node.children[i]);
+		if (node.name === '|') {
+			content = node.text || '';
+			result = format('%s', content);
+		} else if (node.name === ':|') {
+			content = htmlEncode(node.text);
+			result = format('%s', content);
+		} else {
+			propStr = '';
+			if (node.properties && node.properties.length > 0) {
+				node.properties.forEach(function(pv) {
+					propStr += ' ' + propVal(pv);
+				});
+			}
+
+			if (node.children) {
+				for (var i = 0, len = node.children.length; i < len; ++i) {
+					content += tag(node.children[i]);
+				}
+			}
+			result = format('<%s%s>%s</%s>', node.name, propStr, content, node.name);
+		}
+
+		return result;
+
+		function propVal(pv) {
+			var name,
+				value;
+
+			name = pv.name;
+			value = pv.value;
+
+			if (typeof value === 'string') {
+				// 这里针对 class 属性有特别的支持，逗号自动替换为空格
+				if (name.toLowerCase() === 'class') {
+					value = value.replace(/,/g, ' ');
+				}
+
+				return name + '=\"' + escapeVal(value) + '\"';
+			} else {
+				return name;
+			}
+
+			function escapeVal(str) {
+				// TODO 转义功能目前尚未实现
+				return str;
 			}
 		}
 
-		return format('<%s>%s</%s>', node.name, content, node.name);
+		function htmlEncode(str) {
+			// TODO html 实体转义功能目前尚未实现
+			return str;
+		}
 	}
 }
