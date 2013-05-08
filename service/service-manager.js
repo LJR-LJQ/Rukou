@@ -1,16 +1,35 @@
+// [导出]
 exports.name = 'Service Manager';
 exports.serviceId = 'ecb30d58-086e-4bf1-b6f7-2b07c2b5a247';
 exports.serveIt = serveIt;
+exports.dispatch = dispatch;
+
+// [模块]
+var fs = require('fs'),
+	path = require('path');
 
 // [变量]
-var websiteManager;
+var serviceList = [];
 
 // [流程]
-websiteManager = require('./website-manager.js');
+loadServices();
 
+// [函数]
 function serveIt(req, callback) {
-	if (req.serviceId === websiteManager.serviceId) {
-		websiteManager.serveIt(req, callback);
+	safeCall(callback, {error: 'unknown action'});
+}
+
+function dispatch(req, callback) {
+	var service;
+
+	// TODO 对 req 进行一些验证
+	service = serviceList[req.serviceId];
+	if (service) {
+		try {
+			service.serveIt(req, callbackProxy);
+		} catch(err) {
+			safeCall(callback, {error: 'service internal error'});
+		}
 	} else {
 		safeCall(callback, {error: 'unknown service id'});
 	}
@@ -18,18 +37,59 @@ function serveIt(req, callback) {
 	function callbackProxy(resObj) {
 		// 响应时也要带上服务编号
 		if (typeof resObj === 'object') {
-			resObj.serviceId = exports.serviceId;
+			resObj.serviceId = service.serviceId;
 		}
 
 		safeCall(callback, resObj);
 	}
+}
 
-	function safeCall(callback, resObj) {
-		if (typeof callback !== 'function') return;
+function loadServices() {
+	var files,
+		obj;
+
+	// 读取文件列表
+	files = fs.readdirSync('./service/');
+
+	// 转换为绝对路径
+	files = files.map(function(file) {
+		return path.resolve('./service/', file);
+	});
+
+	// 逐个加载
+	files.forEach(function(file) {
 		try {
-			callback(resObj);
+			if (!isJsFile(file)) return;
+			obj = require(file);
+			// TODO 对 obj 进行一些验证
+			serviceList.push(obj);
+			serviceList[obj.serviceId] = obj;
+			obj.requestOtherService = requestOtherServiceImp;
 		} catch(err) {
+			console.log('load service failed: ' + file);
+			console.error(err.toString());
+		}
+	});
 
+	function isJsFile(filename) {
+		var ext = path.extname(filename);
+		if (typeof ext === 'string') {
+			return ext.toLowerCase() === '.js';
+		} else {
+			return false;
 		}
 	}
+}
+
+function safeCall(callback, resObj) {
+	if (typeof callback !== 'function') return;
+	try {
+		callback(resObj);
+	} catch(err) {
+
+	}
+}
+
+function requestOtherServiceImp(req, callback) {
+	dispatch(req, callback);
 }
