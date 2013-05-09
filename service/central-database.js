@@ -76,7 +76,15 @@ function requestOtherService(req, callback) {
 
 // [用户请求处理]
 function onCreateDataObject(req, callback) {
-	safeCall(callback, {error: 'not implemented'});
+	create(createCallback);
+
+	function createCallback(err, dataObjectId) {
+		if (err) {
+			safeCall(callback, {error: err});
+		} else {
+			safeCall(callback, {dataObjectId: dataObjectId});
+		}
+	}
 }
 
 function onRetrieveDataObject(req, callback) {
@@ -90,6 +98,11 @@ function onRetrieveDataObject(req, callback) {
 	retrive(dataObjectId, retriveCallback);
 
 	function retriveCallback(err, dataObject) {
+		if (err) {
+			safeCall(callback, {error: err});
+			return;
+		}
+
 		var resObj = {
 			dataObjectId: dataObjectId,
 			dataObject: dataObject
@@ -112,7 +125,7 @@ function onUpdateDataObject(req, callback) {
 
 	function updateCallback(err) {
 		if (err) {
-			safeCall(callback, {error: 'update failed'});
+			safeCall(callback, {error: err});
 		} else {
 			safeCall(callback, {});
 		}
@@ -130,7 +143,7 @@ function onDeleteDataObject(req, callback) {
 
 	function _deleteCallback(err) {
 		if (err) {
-			safeCall(callback, {error: 'delete failed'});
+			safeCall(callback, {error: err});
 		} else {
 			safeCall(callback, {});
 		}
