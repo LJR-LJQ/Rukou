@@ -41,25 +41,36 @@ function safeCall(callback, resObj) {
 }
 
 function requestOtherService(req, callback) {
-	safeCall({error: 'service not found'});
+	safeCall(callback, {error: 'service not found'});
 	
 }
 
 // [用户请求处理]
 function onRetriveMtime(req, callback) {
-	var decodedPath,
+	var decodedPathList,
 		filePathAbs,
-		mtime;
+		mtime,
+		mtimeList;
 
-	decodedPath = req.path;
+	decodedPathList = req.pathList;
+	// 检查格式
+	// todo
 
-	filePathAbs = path.join(rootDir, decodedPath);
-	try {
-		mtime = fs.statSync(filePathAbs).mtime;
-	} catch(err) {
-		safeCall(callback, {error: 'retrive mtime failed'});
-		return;
-	}
+	mtimeList = [];
 
-	safeCall(callback, {mtime: mtime});
+	decodedPathList.forEach(function(decodedPath) {
+		try {
+			filePathAbs = path.join(rootDir, decodedPath);
+			mtime = fs.statSync(filePathAbs).mtime;
+			mtimeList.push({
+				path: decodedPath,
+				mtime: mtime
+			});
+		} catch(err) {
+			console.log('mtime error: ' + err.toString());
+		}
+	});
+
+
+	safeCall(callback, {mtimeList: mtimeList});
 }

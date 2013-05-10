@@ -23,6 +23,7 @@ function request(reqObj, resCallback) {
 
 	// [函数]
 	function onError(err) {
+		debugger;
 		console.log(err.toString());
 	}
 

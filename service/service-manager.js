@@ -71,6 +71,18 @@ function loadServices() {
 		}
 	});
 
+	// 逐个初始化
+	serviceList.forEach(function(service) {
+		if (service.initialize) {
+			try {
+				service.initialize();
+			} catch(err) {
+				console.log('initialize failed: ' + service.name);
+				console.log(err.toString());
+			}
+		}
+	})
+
 	function isJsFile(filename) {
 		var ext = path.extname(filename);
 		if (typeof ext === 'string') {

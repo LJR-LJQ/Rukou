@@ -38,7 +38,7 @@ function safeCall(callback, resObj) {
 }
 
 function requestOtherService(req, callback) {
-	safeCall({error: 'service not found'});
+	safeCall(callback, {error: 'service not found'});
 }
 
 function onRetrieveServiceApi(req, callback) {
