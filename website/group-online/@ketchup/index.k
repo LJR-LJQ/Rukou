@@ -5,4 +5,4 @@ html
 		script src=javascript/logic.js type=text/javascript
 		link href=style/style.css rel=stylesheet type=text/css
 	body
-		div :| hello
+		div :| hello2

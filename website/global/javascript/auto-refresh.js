@@ -99,7 +99,7 @@
 	function makePathList() {
 		// 针对 script 标签和 link 标签
 		// 其他标签暂不处理
-		return [].concat(pathListFromTag('script', 'src')).concat(pathListFromTag('link', 'href'));
+		return [document.location.pathname].concat(pathListFromTag('script', 'src')).concat(pathListFromTag('link', 'href'));
 
 		function pathListFromTag(tagName, propName) {
 			var pathList = [];
