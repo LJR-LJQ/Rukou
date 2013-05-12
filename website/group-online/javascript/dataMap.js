@@ -14,5 +14,9 @@ var dataMap = {
 	'8d5de902-43d5-4662-87a5-3fc7047e2848': {
 		name: '王伟',
 		face: 'image/8d5de902-43d5-4662-87a5-3fc7047e2848.jpg'
+	},
+	'54d6673f-4a77-47df-9682-16a90bfc1123': {
+		name: '沈扬',
+		face: 'image/54d6673f-4a77-47df-9682-16a90bfc1123.jpg'
 	}
 }
