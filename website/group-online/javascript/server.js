@@ -1,4 +1,4 @@
-var requesting = false;
+var isPulling = false;
 
 function PushObj() {
 	this.serviceId= '073b3984-58e5-4277-bde3-ab8081c88022';
@@ -17,15 +17,24 @@ function request(reqObj, resCallback) {
 		resCallback = function(resObj) {};
 	}
 
-	asyncRequest(reqObj, resCallback);
+	// 不能重叠发送 pull 请求
+	if (reqObj.action === 'pull') {
+		if (isPulling) {
+			return;
+		}
+		isPulling = true;
+		asyncRequest(reqObj, resCallback, function() {
+			isPulling = false;
+		});
+	} else {
+		// push 请求随意重叠
+		asyncRequest(reqObj, resCallback);
+	}
+
 }
 
 
-function asyncRequest(reqObj, callback) {
-	// 如果当前有请求尚未完成，则不再发送新的请求
-	if (requesting) return;
-	requesting = true;
-
+function asyncRequest(reqObj, callback, finalCallback) {
 	var xmlHttpReq = new XMLHttpRequest();
 	xmlHttpReq.open('POST', document.location.pathname, true);
 	xmlHttpReq.setRequestHeader('content-type', 'application/json;charset=utf-8');
@@ -41,8 +50,9 @@ function asyncRequest(reqObj, callback) {
 			}
 		}
 
-		// 无论是否发生了错误，至此请求完成
-		requesting = false;
+		if (finalCallback) {
+			finalCallback();
+		}
 	};
 	xmlHttpReq.send(JSON.stringify(reqObj));
 }

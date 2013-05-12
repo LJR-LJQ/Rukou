@@ -1,7 +1,8 @@
 html
 	head
 		title | Group Online 团队在线
-		script src=../global/javascript/auto-refresh.js type=text/javascript
+		@skipme
+			script src=../global/javascript/auto-refresh.js type=text/javascript
 		script src=../global/javascript/ui-model.js type=text/javascript
 		script src=javascript/dataMap.js type=text/javascript
 		script src=javascript/server.js type=text/javascript

@@ -16,6 +16,8 @@ var actionMap = {},
 var dataClean = true,
 	saving = false;
 
+var pullQueue = [];
+
 // [流程]
 actionMap['pull'] = onPull;
 actionMap['push'] = onPush;
@@ -80,9 +82,17 @@ function onPull(req, callback) {
 
 	var lastMessageId = req.lastMessageId;
 	if (typeof lastMessageId !== 'number') {
-		responseRange(0, dataObject.messageList.length);
+		lastMessageId = -1;
+	}
+
+	var start = lastMessageId + 1;
+
+	// 如果当前请求的起始位置已经位于末尾，则将该请求挂起
+	if (start >= dataObject.messageList.length) {
+		pullQueue.push(callback);
+		return;
 	} else {
-		responseRange(lastMessageId+1, dataObject.messageList.length);
+		responseRange(start, dataObject.messageList.length);
 	}
 
 	function responseRange(start, end) {
@@ -95,6 +105,7 @@ function onPull(req, callback) {
 		for (var i = start; i < end; ++i) {
 			messageList.push(dataObject.messageList[i]);
 		}
+
 		safeCall(callback, {messageList: messageList});
 	}
 }
@@ -128,6 +139,18 @@ function onPush(req, callback) {
 	dataObject.messageList.push(messageItem);
 
 	safeCall(callback, {});
+	debugger;
+
+	// 把之前滞留的请求都响应一下
+	while(pullQueue.length > 0) {
+		try {
+			safeCall(pullQueue.pop(), {messageList: [messageItem]});
+		} catch(err) {
+			console.log('process pull queue failed:');
+			console.log(err.toString());
+		}
+		console.log('process pull queue');
+	}
 }
 
 function startAutoSave() {
