@@ -8,6 +8,7 @@ html
 		script src=javascript/data2dom.js type=text/javascript
 		script src=javascript/logic.js type=text/javascript
 		link href=style/style.css rel=stylesheet type=text/css
+		link href=style/animation.css rel=stylesheet type=text/css
 	body
 		div class=timeline
 			div id=message-list class=message-list

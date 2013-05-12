@@ -1,6 +1,6 @@
 function messageDomFrom(data) {
 	if (!data) return;
-	var messageDom = E('div', AddClass('message'), AppendChildren(
+	var messageDom = E('div', AddClass('message', 'hide'), AppendChildren(
 		E('div', AddClass('author-face'), AppendChildren(
 			E('img', SetAttribute('src', authorFace()))
 		)),

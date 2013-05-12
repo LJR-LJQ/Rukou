@@ -88,6 +88,10 @@ function appendMessageList(messageList) {
 		var d = id('message-list');
 		if (d) {
 			d.appendChild(messageDom);
+			// 启动动画
+			setTimeout(function() {
+				messageDom.classList.add('show');
+			}, 1);
 		}
 	}
 }
