@@ -42,6 +42,7 @@ function onSendMessage() {
 	}
 	push(mi.value);
 	mi.value = '';
+	mi.focus();
 }
 
 function pull() {

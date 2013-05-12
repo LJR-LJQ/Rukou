@@ -5,13 +5,24 @@ html, body {
 }
 
 body {
-	font-family: 'Microsoft Yahei';
+	font-family: 'Georgia','Microsoft Yahei';
 	cursor: default;
 }
 
 a {
 	text-decoration: none;
 	color: inherit;
+}
+
+pre {
+	margin: 0;
+	padding: 0;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	letter-spacing: inherit;
+	word-spacing: inherit;
+	white-space: pre-line;
 }
 
 p {
@@ -27,7 +38,8 @@ p {
 .timeline {
 	max-width: 26rem;
 	margin: 4rem auto 4rem auto;
-	letter-spacing: .1em;
+	letter-spacing: .05em;
+	word-spacing: .05em;
 	line-height: 1.8em;
 }
 
@@ -66,10 +78,11 @@ p {
 
 .message-date {
 	color: gray;
-	font-size: .5em;
+	font-size: .6em;
 	margin-left: .5em;
 	vertical-align: middle;
 	letter-spacing: normal;
+	font-family: 'Microsoft Yahei';
 }
 
 .message-date:hover {
@@ -120,6 +133,7 @@ textarea.message-editor {
 	margin: 0;
 	padding: 0;
 	border: none;
+	min-height: 3.6em;
 }
 
 .message-editor {
@@ -154,4 +168,10 @@ button.send-button {
 
 .send-button:active {
 	box-shadow: 0px 2px 4px rgb(138, 138, 138) inset;
+}
+
+/* 提示信息 */
+.tip {
+	font-size: .6rem;
+	opacity: .4;
 }

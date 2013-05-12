@@ -39,4 +39,6 @@ html
 				form id=message-form
 					div class=message-editor-border
 						textarea id=message-input class=message-editor placeholder=对话内容...
-						button class=send-button | 发送
+						button class=send-button accesskey=s | 发送
+					div class=tip
+						| 发送消息的快捷键为 ALT+S
