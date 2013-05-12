@@ -1,3 +1,141 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+}
+
 body {
-	font-size: 80px;
+	font-family: 'Microsoft Yahei';
+	cursor: default;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+p {
+	margin-top: 0;
+}
+
+.border {
+	border: solid 1px black;
+}
+
+/* 时间轴 */
+
+.timeline {
+	max-width: 26rem;
+	margin: 4rem auto 4rem auto;
+	letter-spacing: .1em;
+	line-height: 1.8em;
+}
+
+/* 单条消息整体 */
+
+.message {
+	position: relative;
+}
+
+/* 发言者名字 */
+
+.author-name {
+	color: gray;
+}
+
+.author-name:hover {
+	color: black;
+}
+
+/* 发言者头像 */
+
+.author-face {
+	position: absolute;
+	margin-left: -4rem;
+	margin-top: .5rem;
+}
+
+.author-face img {
+	display: block;
+	width: 3rem;
+	height: 3rem;
+	border-radius: 5px;
+}
+
+/* 发言时间 */
+
+.message-date {
+	color: gray;
+	font-size: .5em;
+	margin-left: .5em;
+	vertical-align: middle;
+	letter-spacing: normal;
+}
+
+.message-date:hover {
+	color: black;
+}
+
+/* 发言内容 */
+
+.message-content {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.message-content {
+	white-space: pre-wrap;
+}
+
+.message-content {
+}
+
+/* 消息编辑器-外框 */
+.message-editor-border {
+	border: solid 1px black;
+}
+
+/* 消息编辑器 */
+textarea.message-editor {
+	display: block;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	letter-spacing: inherit;;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+.message-editor {
+	border: solid 1px black;
+	cursor: text;
+	width: 100%;
+}
+
+.message-editor:focus {
+	outline: none;
+}
+
+/* 发送消息按钮 */
+button.send-button {
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	letter-spacing: inherit;;
+	background-color: transparent;
+	padding: 0;
+}
+
+.send-button {
+	border: none;
+	border-top: solid 1px black;
+	width: 5em;
+	text-align: center;
+	width: 100%;
+	margin: 0;
+}
+
+.send-button:active {
+	box-shadow: 0px 2px 4px rgb(138, 138, 138) inset;
 }
