@@ -20,6 +20,10 @@ function output(tree) {
 	return text;
 
 	function tag(node) {
+		if (node.name.toLowerCase() === '@skipme') {
+			return '';
+		}
+
 		var propStr,
 			content,
 			result;

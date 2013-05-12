@@ -1,4 +1,4 @@
-var cache = [];
+var requesting = false;
 
 function PushObj() {
 	this.serviceId= '073b3984-58e5-4277-bde3-ab8081c88022';
@@ -17,36 +17,32 @@ function request(reqObj, resCallback) {
 		resCallback = function(resObj) {};
 	}
 
-	if (reqObj.action === 'pull') {
-		if (cache.length > 0) {
-			resCallback({
-				messageList: cache
-			});
-			cache = [];
-		} else {
-			resCallback({messageList: []});
-			return;
-			resCallback({
-				messageList: [{
-					messageId: '-1',
-					authorId: '24906a68-0702-4f27-aeb1-03713bf0f9be',
-					content: '测试内容 测试内容 测试内容 测试内容 测试内容 ',
-					dateTime: new Date()
-				}]
-			});
+	asyncRequest(reqObj, resCallback);
+}
+
+
+function asyncRequest(reqObj, callback) {
+	// 如果当前有请求尚未完成，则不再发送新的请求
+	if (requesting) return;
+	requesting = true;
+
+	var xmlHttpReq = new XMLHttpRequest();
+	xmlHttpReq.open('POST', document.location.pathname, true);
+	xmlHttpReq.setRequestHeader('content-type', 'application/json;charset=utf-8');
+	xmlHttpReq.onreadystatechange = function() {
+		if (xmlHttpReq.readyState !== 4) return;
+		if (xmlHttpReq.status === 200) {
+			// 将结果解析出来，并调用回调函数进行通知
+			try {
+				var obj = JSON.parse(xmlHttpReq.responseText);
+				callback(obj);
+			} catch(err) {
+
+			}
 		}
-	} else if (reqObj.action === 'push') {
-		try {
-			var o = {
-				messageId: '-1',
-				authorId: reqObj.authorId,
-				content: reqObj.content,
-				dateTime: ''
-			};
-			cache.push(o);
-			resCallback({});
-		} catch(err) {
-			console.log(err);
-		}
-	}
+
+		// 无论是否发生了错误，至此请求完成
+		requesting = false;
+	};
+	xmlHttpReq.send(JSON.stringify(reqObj));
 }

@@ -1,14 +1,3 @@
-var dataMap = {
-	'7dcea149-bf1f-4e7d-b778-df7cb12cc45c': {
-		name: '林建入',
-		face: 'image/7dcea149-bf1f-4e7d-b778-df7cb12cc45c.jpg'
-	},
-	'24906a68-0702-4f27-aeb1-03713bf0f9be': {
-		name: '刘锦权',
-		face: 'image/24906a68-0702-4f27-aeb1-03713bf0f9be.jpg'
-	}
-}
-
 function messageDomFrom(data) {
 	if (!data) return;
 	var messageDom = E('div', AddClass('message'), AppendChildren(
@@ -45,6 +34,13 @@ function messageDomFrom(data) {
 	}
 	
 	function messageDate() {
+		try {
+			var d = new Date(data.dateTime);
+			var str = d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
+			return str;
+		} catch(err) {
+			return '未知时间';
+		}
 		return '2013/5/11 15:20';
 	}
 

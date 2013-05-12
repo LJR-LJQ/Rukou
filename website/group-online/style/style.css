@@ -52,7 +52,7 @@ p {
 .author-face {
 	position: absolute;
 	margin-left: -4rem;
-	margin-top: .5rem;
+	margin-top: .4rem;
 }
 
 .author-face img {
@@ -90,12 +90,27 @@ p {
 .message-content {
 }
 
+/* 整个编辑器 */
+
+.editor {
+	margin-top: 2rem;
+}
+
+/* 编辑器顶部的分割线 */
+.editor-seperator {
+	border-top: solid 5px rgb(224, 224, 224);
+	height: 1rem;
+	margin-left: -4rem;
+}
+
 /* 消息编辑器-外框 */
+
 .message-editor-border {
 	border: solid 1px black;
 }
 
 /* 消息编辑器 */
+
 textarea.message-editor {
 	display: block;
 	font-family: inherit;
@@ -118,6 +133,7 @@ textarea.message-editor {
 }
 
 /* 发送消息按钮 */
+
 button.send-button {
 	font-family: inherit;
 	font-size: inherit;

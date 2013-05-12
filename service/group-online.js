@@ -114,7 +114,7 @@ function onPush(req, callback) {
 
 	authorId = req.authorId;
 	content = req.content;
-	dateTime = new Date();
+	dateTime = new Date().toUTCString();
 	messageId = dataObject.messageList.length;
 
 	var messageItem = {

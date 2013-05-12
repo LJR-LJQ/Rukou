@@ -17,21 +17,16 @@ onload = function() {
 	}
 
 	// 设置用户名和头像
-	switch(currentAuthorId) {
-		case '7dcea149-bf1f-4e7d-b778-df7cb12cc45c':
-			setAuthorName('林建入');
-			setFaceImage('image/7dcea149-bf1f-4e7d-b778-df7cb12cc45c.jpg');
-			break;
-		case '24906a68-0702-4f27-aeb1-03713bf0f9be':
-			setAuthorName('刘锦权');
-			setFaceImage('image/24906a68-0702-4f27-aeb1-03713bf0f9be.jpg');
-			break;
+	var info = dataMap[currentAuthorId];
+	if (info) {
+		setAuthorName(info.name);
+		setFaceImage(info.face);
 	}
 
 	// 启动时间显示
 	setInterval(function(){
 		var d = new Date();
-		var str = d.getFullYear() + '/' + d.getMonth() + '/' + d.getDay() + ' ' + d.getHours() + ':' + d.getMinutes();
+		var str = d.toLocaleDateString() + ' ' + d.toLocaleTimeString()
 		setDateTime(str);
 	}, 1000);
 }
