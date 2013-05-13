@@ -3,6 +3,7 @@ exports.name = 'Service Manager';
 exports.serviceId = 'ecb30d58-086e-4bf1-b6f7-2b07c2b5a247';
 exports.serveIt = serveIt;
 exports.dispatch = dispatch;
+exports.dispatchUrl = dispatchUrl;
 
 // [模块]
 var fs = require('fs'),
@@ -41,6 +42,23 @@ function dispatch(req, callback, _rawReq, _rawRes) {
 		}
 
 		safeCall(callback, resObj);
+	}
+}
+
+function dispatchUrl(serviceId, _rawReq, _rawRes) {
+	var service;
+	debugger;
+	service = serviceList[serviceId];
+	if (service) {
+		try {
+			service.responseUrl(_rawReq, _rawRes);
+		} catch(err) {
+			_rawRes.end();
+		}
+	} else {
+		// 如果服务找不到，就直接返回 400 错误
+		_rawRes.statusCode = 400;
+		_rawRes.end();
 	}
 }
 
