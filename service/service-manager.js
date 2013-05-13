@@ -19,14 +19,14 @@ function serveIt(req, callback) {
 	safeCall(callback, {error: 'unknown action'});
 }
 
-function dispatch(req, callback) {
+function dispatch(req, callback, _rawReq, _rawRes) {
 	var service;
 
 	// TODO 对 req 进行一些验证
 	service = serviceList[req.serviceId];
 	if (service) {
 		try {
-			service.serveIt(req, callbackProxy);
+			service.serveIt(req, callbackProxy, _rawReq, _rawRes);
 		} catch(err) {
 			safeCall(callback, {error: 'service internal error'});
 		}
