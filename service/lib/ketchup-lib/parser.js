@@ -106,6 +106,10 @@ function parse(inputStr) {
 		// [流程]
 		while (nodeList.length > 0) {
 			e = nodeList.pop();
+			debugger;
+			// 先修正一下自己的行内子元素
+			convertInlineChildLink(e);
+			// 然后找到父元素把自己挂接上去
 			parent = findParent(e, nodeList);
 			if (parent) {
 				parent.children.unshift(e);
@@ -121,6 +125,15 @@ function parse(inputStr) {
 					return nodeList[i];
 				}
 			}
+		}
+
+		function convertInlineChildLink(e) {
+			if (!e || !e.inlineChild) return;
+			e.children.unshift(e.inlineChild);
+			// 递归向下处理
+			convertInlineChildLink(e.inlineChild);
+			// 删除 inlineChild 属性
+			delete e.inlineChild;
 		}
 	}
 }

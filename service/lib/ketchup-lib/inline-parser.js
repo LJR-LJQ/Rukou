@@ -146,7 +146,7 @@ function parse(lineStr) {
 		while (nodeList.length > 0) {
 			var n = nodeList.pop();
 			if (nodeList.length > 0) {
-				nodeList[nodeList.length-1].children.push(n);
+				nodeList[nodeList.length-1].inlineChild = n;
 			} else {
 				return n;
 			}
