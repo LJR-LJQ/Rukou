@@ -30,11 +30,11 @@ function parse(lineStr) {
 
 		do {
 			var e = nextElement();
-			if (e) {
-				elements.push(e);
-				if (e.name === '|' || e.name === ':|') {
-					break;
-				}
+			if (!e) break;
+			
+			elements.push(e);
+			if (e.name === '|' || e.name === ':|') {
+				break;
 			}
 		} while(pos < lineStr.length)
 
@@ -51,7 +51,9 @@ function parse(lineStr) {
 				nameBlock = nextBlock();
 			} while(nameBlock === '>')
 
-			if (nameBlock === '|' || nameBlock === ':|') {
+			if (!nameBlock) {
+				return;
+			} else if (nameBlock === '|' || nameBlock === ':|') {
 				var textNode = {
 					name: nameBlock,
 					properties: [],
@@ -146,7 +148,7 @@ function parse(lineStr) {
 		while (nodeList.length > 0) {
 			var n = nodeList.pop();
 			if (nodeList.length > 0) {
-				nodeList[nodeList.length-1].children.push(n);
+				nodeList[nodeList.length-1].inlineChild = n;
 			} else {
 				return n;
 			}
