@@ -1,0 +1,1 @@
+node rukou.js

@@ -58,6 +58,7 @@ function pull() {
 		}
 
 		appendMessageList(resObj.messageList);
+		playMessageSound();
 
 		if (resObj.messageList.length > 0) {
 			// 滚动到底部

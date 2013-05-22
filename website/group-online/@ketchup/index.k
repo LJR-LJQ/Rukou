@@ -1,9 +1,9 @@
 html
 	head
 		title | Group Online 团队在线
-		@skipme
-			script src=../global/javascript/auto-refresh.js type=text/javascript
+		script src=../global/javascript/auto-refresh.js type=text/javascript
 		script src=../global/javascript/ui-model.js type=text/javascript
+		script src=javascript/sound.js type=text/javascript
 		script src=javascript/dataMap.js type=text/javascript
 		script src=javascript/server.js type=text/javascript
 		script src=javascript/data2dom.js type=text/javascript
@@ -11,6 +11,7 @@ html
 		link href=style/style.css rel=stylesheet type=text/css
 		link href=style/animation.css rel=stylesheet type=text/css
 	body
+		audio id=message-sound src=sound/message.wav preload loop controls autoplay
 		div class=timeline
 			div id=message-list class=message-list
 				@skipme
