@@ -1,0 +1,58 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Consolas';
+	font-size: 16px;
+	letter-spacing: -.1em;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	padding: 0 0 0 1em;
+	font-size: .5625em;
+	line-height: 1.5em;
+	margin-left: 4px;
+	border-left: solid #eee;
+}
+
+h3 {
+	margin: 0;
+	font-size: 1.5em;
+}
+
+.redundancy:before {
+	content: "/";
+}
+
+.redundancy {
+	font-weight: normal;
+	color: #eee;
+	font-size: .75em;
+}
+
+.main-container {
+	font-size: 2em;
+	line-height: 1.5em;
+	padding-top: 2.5%;
+	padding-bottom: 2.5%;
+	padding-left: 2.5%;
+	white-space: pre;
+	position: absolute;
+	border: solid;
+	border: none;
+}
+
+.sub-container {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 1em;
+}
+
+.main-container > .sub-container:first-child {
+	margin-left: 0;
+}
