@@ -23,6 +23,11 @@ html
 			ul
 				li
 					div class=website-name
+						a href=/file-explorer/index.html target=_blank | 文件浏览器
+					div class=website-desc
+						| 浏览当前计算机上的文件并进行下载
+				li
+					div class=website-name
 						a href=/group-online/index.html target=_blank | 团队在线
 					div class=website-desc
 						| 提供了团队沟通和协作所需的在线交流系统
@@ -33,6 +38,6 @@ html
 						| 包括开发计划，开发进展，开发文档以及一些技术总结等
 				li
 					div class=website-name
-						a href=/file-explorer/index.html target=_blank | 文件浏览器
+						a href=/http-learn/index.html target=_blank | HTTP 协议学习笔记
 					div class=website-desc
-						| 浏览当前计算机上的文件并进行下载
+						| 主要是 HTTP 学习方面的一些个人总结
