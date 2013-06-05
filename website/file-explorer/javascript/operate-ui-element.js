@@ -27,3 +27,28 @@ function fileList_ReplaceChildren(children, scb) {
 		});
 	});
 }
+
+
+var isHeaderExpanded = false;
+
+function expandHeader() {
+	header(function(e) {
+		isHeaderExpanded = true;
+		e.classList.add('expanded');
+	});
+}
+
+function collapseHeader() {
+	header(function(e) {
+		isHeaderExpanded = false;
+		e.classList.remove('expanded');
+	})
+}
+
+function switchHeader() {
+	if (isHeaderExpanded) {
+		collapseHeader();
+	} else {
+		expandHeader();
+	}
+}

@@ -1,10 +1,9 @@
 html
 	head
 		title | 文件浏览器
-		@skipme
-			script src=../global/javascript/auto-refresh.js type=text/javascript
 		script src=../global/javascript/auto-refresh.js type=text/javascript
 		link rel=stylesheet href=style/style.css type=text/css
+		link rel=stylesheet href=style/header-style.css type=text/css
 		script src=javascript/common.js
 		script src=javascript/data-to-dom.js
 		script src=javascript/find-ui-element.js
@@ -13,12 +12,15 @@ html
 		script src=javascript/server-api.js type=text/javascript
 		script src=javascript/start-up.js type=text/javascript
 	body
-		div class=container
+		div class=header
+			a href=javascript: class=header-switch-button | @Rukou 入口
+		div id=container class=container
 			div class=seperator
 			div class=varea,column-1
 				h3 class=class-title | 位置
 				div
 					ol class=parent-dir-list
+					@skipme
 						li > a href=javascript: | Computer
 						li > a href=javascript: | C:
 						li > a href=javascript: | Windows
@@ -26,6 +28,7 @@ html
 				h3 class=class-title | 目录
 				div
 					ol class=sub-dir-list
+					@skipme
 						li > a href=javascript: | addins
 						li > a href=javascript: | AppCompat
 						li > a href=javascript: | AppPatch
@@ -147,6 +150,7 @@ html
 				h3 class=class-title | 文件
 				div
 					ol class=file-list
+					@skipme
 						li > a href=javascript: | _default.pif
 						li > a href=javascript: | ativpsrm.bin
 						li > a href=javascript: | bfsvc.exe

@@ -50,7 +50,6 @@ function d2d_general(obj, href, scb) {
 	scb(li);
 }
 
-
 // # convertMethod(dataItem, scb)
 // convertMethod 的 scb 为：scb(domItem)
 function appendDataList2Dom(domElement, dataList, convertMethod, scb) {

@@ -1,13 +1,26 @@
+var ProductName = 'FileJump';
+
 onload = function() {
+	headerSwitchButton(function(e) {
+		e.addEventListener('click', onClickHeaderSwitchButton);
+	});
+
 	gotoDir('');
 }
 
+var seqNum = 0;
+
 // # scb()
 function gotoDir(path, scb) {
+	var _seqNum = ++seqNum;
+
 	scb = emptyProtect();
 	queryDir(path, queryDirCallback);
 
 	function queryDirCallback(dirInfo) {
+		if (_seqNum !== seqNum) {
+			return;
+		}
 		setParentDirList(dirInfo.parentDirList);
 		setSubDirList(dirInfo.subDirList);
 		setFileList(dirInfo.fileList);

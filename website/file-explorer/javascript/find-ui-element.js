@@ -23,3 +23,19 @@ function fileList(scb) {
 		scb(list[0]);
 	});
 }
+
+// # scb(domElement)
+function header(scb) {
+	scb = emptyProtect(scb);
+	selectAll('.header', function(list) {
+		scb(list[0]);
+	});
+}
+
+// # scb(domElement)
+function headerSwitchButton(scb) {
+	scb = emptyProtect(scb);
+	selectAll('.header-switch-button', function(list) {
+		scb(list[0]);
+	});
+}
