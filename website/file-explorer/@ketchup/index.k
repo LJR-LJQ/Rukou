@@ -4,6 +4,7 @@ html
 		script src=../global/javascript/auto-refresh.js type=text/javascript
 		link rel=stylesheet href=style/style.css type=text/css
 		link rel=stylesheet href=style/header-style.css type=text/css
+		link rel=stylesheet href=style/animation.css type=text/css
 		script src=javascript/common.js
 		script src=javascript/data-to-dom.js
 		script src=javascript/find-ui-element.js

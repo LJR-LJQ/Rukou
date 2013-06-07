@@ -7,10 +7,6 @@
 	position: relative;
 }
 
-.header {
-	transition: height 1s ease;
-}
-
 .header.expanded {
 	height: 50%;
 }

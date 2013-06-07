@@ -72,7 +72,11 @@ function emptyFunc() {
 }
 
 function log() {
-	if (console && typeof console.log === 'function') {
-		console.log.apply(console, arguments);
+	try {
+		if (console && typeof console.log === 'function') {
+			console.log.apply(console, arguments);
+		}
+	} catch(err) {
+		
 	}
 }

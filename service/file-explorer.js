@@ -9,7 +9,8 @@ exports.responseUrl = responseUrl;
 var fs = require('fs'),
 	url = require('url'),
 	path = require('path'),
-	getLogicalDrives = require('./lib/get-logical-drives.js').getLogicalDrives;
+	getLogicalDrives = require('./lib/get-logical-drives.js').getLogicalDrives,
+	enumFiles = require('./lib/enum-files.js').enumFiles;
 
 // [变量]
 var actionMap = {};
@@ -32,11 +33,11 @@ function serveIt(req, callback) {
 function responseUrl(_rawReq, _rawRes) {
 	// 注意 url.parse 的同时也做了 decodeURI
 	var filePath = url.parse(_rawReq.url, true).query['filePath'];
-	console.log(filePath);
+	//console.log(filePath);
 
 	var fileName = path.basename(filePath);
 	fileName = encodeURIComponent(fileName);
-	console.log(fileName);
+	//console.log(fileName);
 	_rawRes.setHeader('Content-Type', 'application/octet-stream');
 	_rawRes.setHeader('Content-Disposition', 'attachment; filename=' + fileName);
 
@@ -171,32 +172,58 @@ function inspectDirPath(dirPath, scb) {
 		struct.parentDirList = parentDirList;
 
 		// 构造子目录结构和文件结构
-		fs.readdir(dirPath, function(err, list) {
-			if (err) {
-				console.log(err.toString());
-				return;
-			}
-			list.forEach(function(item) {
-				var fullpath = path.resolve(dirPath, item),
-					s;
-				try {
-					s = fs.lstatSync(fullpath);
-					if (s.isFile()) {
-						struct.fileList.push(pathItem(item, fullpath));
-					} else if (s.isDirectory()) {
-						struct.subDirList.push(pathItem(item, fullpath));
-					}
-				} catch(err) {
-					console.log(err.toString());
-				}
+		enumFiles(dirPath, function(o) {
+			// 获取成功，要对其格式进行转换
+			// 首先转换目录
+			o.directories.forEach(function(subdir) {
+				var fullpath = path.resolve(dirPath, subdir.name);
+				struct.subDirList.push(pathItem(subdir.name, fullpath, subdir.hidden));
 			});
 
+			o.files.forEach(function(file) {
+				var fullpath = path.resolve(dirPath, file.name);
+				struct.fileList.push(pathItem(file.name, fullpath, file.hidden));
+			});
 
 			if (scb) {
 				scb(struct);
 			}
 
+		}, function() {
+			// 不明原因导致获取目录及文件失败
+			// 但是还是要响应客户端的请求
+			// 当作没有子目录和文件
+			if (scb) {
+				scb(struct);
+			}
 		});
+
+		// fs.readdir(dirPath, function(err, list) {
+		// 	if (err) {
+		// 		console.log(err.toString());
+		// 		return;
+		// 	}
+		// 	list.forEach(function(item) {
+		// 		var fullpath = path.resolve(dirPath, item),
+		// 			s;
+		// 		try {
+		// 			s = fs.lstatSync(fullpath);
+		// 			if (s.isFile()) {
+		// 				struct.fileList.push(pathItem(item, fullpath));
+		// 			} else if (s.isDirectory()) {
+		// 				struct.subDirList.push(pathItem(item, fullpath));
+		// 			}
+		// 		} catch(err) {
+		// 			console.log(err.toString());
+		// 		}
+		// 	});
+
+
+		// 	if (scb) {
+		// 		scb(struct);
+		// 	}
+
+		// });
 	});
 }
 
@@ -247,10 +274,13 @@ function calcSubDirListAndFileList(dirPath, scb) {
 	
 }
 
-function pathItem(name, path) {
+function pathItem(name, path, hidden) {
 	var o = {
 		name: name,
 		path: path
 	};
+	if (hidden) {
+		o.hidden = hidden;
+	}
 	return o;
 }

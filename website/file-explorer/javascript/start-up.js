@@ -9,6 +9,7 @@ onload = function() {
 }
 
 var seqNum = 0;
+var showHiddenThings = false;
 
 // # scb()
 function gotoDir(path, scb) {
@@ -33,14 +34,40 @@ function gotoDir(path, scb) {
 	}
 
 	function setSubDirList(list, scb) {
+		list = hiddenFilter(list);
+
 		subDirList(function(targetDom) {
 			setDataList2Dom(targetDom, list, d2d_subDir, scb);
 		});
 	}
 
 	function setFileList(list, scb) {
+		list = hiddenFilter(list);
+
 		fileList(function(targetDom) {
 			setDataList2Dom(targetDom, list, d2d_file, scb);
 		});
+	}
+
+	function hiddenFilter(list) {
+		if (!list) {
+			return list;
+		}
+
+		if (!showHiddenThings) {
+			var newList = [];
+			for (var i = 0, len = list.length; i < len; ++i) {
+				var item = list[i];
+				if (item.hidden === true) {
+					continue;
+				} else {
+					newList.push(item);
+				}
+			}
+			return newList;
+		} else {
+			return list;
+		}
+
 	}
 }
