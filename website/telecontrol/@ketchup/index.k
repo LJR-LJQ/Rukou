@@ -6,9 +6,6 @@ html
 		script src=../global/javascript/auto-refresh.js type=text/javascript
 		link rel=stylesheet href=style/style.css type=text/css
 		script src=javascript/common.js
-		script src=javascript/data-to-dom.js
-		script src=javascript/find-ui-element.js
-		script src=javascript/operate-ui-element.js
 		script src=javascript/event-handler.js type=text/javascript
 		script src=javascript/server-api.js type=text/javascript
 		script src=javascript/start-up.js type=text/javascript

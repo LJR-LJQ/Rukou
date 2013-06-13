@@ -48,7 +48,6 @@ function onHide() {
 
 function onLeftClick(evt) {
 	var container = document.getElementById('myContainer');
-	console.log(container.getAttribute('x'));
 	controlScreen([
 		'LeftClick'
 	]);

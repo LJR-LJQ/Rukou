@@ -1,4 +1,4 @@
-// [模块]
+﻿// [模块]
 var http = require('http'),
 	OnGET = require('./lib/OnGET.js'),
 	OnPOST = require('./lib/OnPOST.js');
