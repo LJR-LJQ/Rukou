@@ -42,7 +42,6 @@ function safeCall(callback, resObj) {
 
 function requestOtherService(req, callback) {
 	safeCall(callback, {error: 'service not found'});
-	
 }
 
 // [用户请求处理]

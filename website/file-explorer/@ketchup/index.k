@@ -1,6 +1,6 @@
 html
 	head
-		title | 文件浏览器
+		title | 喵德利的文件传输机
 		script src=../global/javascript/auto-refresh.js type=text/javascript
 		link rel=stylesheet href=style/style.css type=text/css
 		link rel=stylesheet href=style/header-style.css type=text/css
@@ -14,7 +14,12 @@ html
 		script src=javascript/start-up.js type=text/javascript
 	body
 		div class=header
-			a href=javascript: class=header-switch-button | @Rukou 入口
+			div class=header-content,expanded
+				div class=padding-container
+					div | 喵德利的文件传输机 1.0 内测版本
+					div | 正式版将在 15 天后发布
+			div
+				a href=javascript: class=header-switch-button | 喵德利的文件传输机
 		div id=container class=container
 			div class=seperator
 			div class=varea,column-1

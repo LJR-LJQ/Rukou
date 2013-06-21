@@ -1,0 +1,107 @@
+html {
+	background-color: rgb(236, 236, 236);
+}
+
+body {
+	padding-left: 10em;
+}
+
+.module-list {
+	background-color: yellow;
+}
+
+.title {
+	font-size: 5em;
+	font-family: Impact;
+}
+
+.title .rukou {
+	color: rgb(46, 46, 46);
+}
+
+.title .explain {
+	font-size: .5em;
+	color: rgb(199, 0, 0);
+}
+
+.line {
+	white-space: pre;
+}
+
+.line {
+	margin-top: .5em;
+}
+
+.line > .line {
+	margin-left: 2em;
+}
+
+.action-item {
+	border-radius: 4px;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.action-item {
+	box-shadow: 1px 1px 0 white;
+}
+
+.action-item > span {
+	display: inline-block;
+	padding: .5em;
+}
+
+.action-item > span {
+	min-height: 1em;
+	vertical-align: middle;
+	line-height: 1em;
+}
+
+/* action-name */
+.action-name {
+	background-color: rgb(46, 46, 46);
+	color: white;
+}
+
+/* seq */
+
+.seq {
+	background-color: rgb(255, 82, 0);
+	color: white;
+}
+
+/**/
+/*
+.action-item > * {
+	border-right: solid 2px white;	
+}
+
+.action-item > *:last-child {
+	border-right: none;
+}
+*/
+
+.action-result {
+	background-color: rgb(255, 224, 0);
+	color: black;
+}
+
+.failed {
+	background-color: red;
+	color: white;
+}
+
+.success {
+	background-color: rgb(0, 165, 0);
+	color: white;
+}
+
+.progress {
+	background-color: rgb(255, 224, 0);
+	color: black;
+}
+
+.ps {
+	background-color: green;
+	color: white;
+}

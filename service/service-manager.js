@@ -67,11 +67,11 @@ function loadServices() {
 		obj;
 
 	// 读取文件列表
-	files = fs.readdirSync('./service/');
+	files = fs.readdirSync(path.resolve(__dirname, '../service/'));
 
 	// 转换为绝对路径
 	files = files.map(function(file) {
-		return path.resolve('./service/', file);
+		return path.resolve(__dirname, '../service/', file);
 	});
 
 	// 逐个加载

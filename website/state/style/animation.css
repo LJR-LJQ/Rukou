@@ -1,0 +1,10 @@
+.ani-hide {
+	transition: opacity 1s, -webkit-transform 1s;
+	-webkit-transform: translateY(100px);
+	opacity: 0;
+}
+
+.ani-show {
+	-webkit-transform: translateY(0px);
+	opacity: 1;
+}

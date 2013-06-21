@@ -25,9 +25,9 @@ function fileList(scb) {
 }
 
 // # scb(domElement)
-function header(scb) {
+function headerContent(scb) {
 	scb = emptyProtect(scb);
-	selectAll('.header', function(list) {
+	selectAll('.header-content', function(list) {
 		scb(list[0]);
 	});
 }
